@@ -3,12 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "express": "^4.16.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-router": "^5.0.0",
+    "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3081 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -27,5 +30,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://localhost:3080"
 }
