@@ -136,6 +136,7 @@ a {
   grid-template-columns: 2fr 1fr 1fr;
   grid-column-gap: 3px;
   margin-bottom: 5px;
+  line-height: 30px;
 }
 
 .lang {

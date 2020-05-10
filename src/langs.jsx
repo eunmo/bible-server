@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
+import Header from './header';
 import Context from './context';
 import { langs } from './data';
 
@@ -13,7 +14,8 @@ export default ({ match }) => {
 
   return (
     <div>
-      <div className="header">언어설정</div>
+      <Header title="언어설정" />
+      <div className="vertical-buffer" />
       {langs.map((lang) => (
         <div key={lang.abbr} className="lang-grid">
           <div>{lang.name}</div>
@@ -33,7 +35,8 @@ export default ({ match }) => {
           </div>
         </div>
       ))}
-      <div className="header" style={{ marginTop: '5px' }}>
+      <div className="vertical-buffer" />
+      <div className="header">
         <Link to={backUrl}>{backName}</Link>
       </div>
     </div>
