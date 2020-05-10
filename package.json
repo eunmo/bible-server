@@ -9,6 +9,8 @@
     "express": "^4.17.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-route": "^1.0.3",
+    "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1"
   },
   "devDependencies": {
@@ -26,7 +28,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint --fix \"src/**/*.{js,jsx}\" \"server/**/*.js\""
+    "lint": "eslint --fix \"src/**/*.{js,jsx}\" \"server/**/*.js\"",
+    "lint:server": "eslint --fix \"server/**/*.js\""
   },
   "proxy": "http://localhost:3080",
   "eslintConfig": {
