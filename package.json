@@ -3,30 +3,63 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@testing-library/jest-dom": "^5.7.0",
+    "@testing-library/react": "^10.0.4",
+    "@testing-library/user-event": "^10.1.2",
     "express": "^4.17.1",
-    "husky": "^3.0.0",
-    "lint-staged": "^9.2.0",
-    "prettier": "^1.18.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-router": "^5.0.1",
-    "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-react-hooks": "^4.0.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.2",
+    "prettier": "^2.0.5",
+    "supertest": "^4.0.2"
   },
   "scripts": {
     "start": "PORT=3081 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint --fix \"src/**/*.{js,jsx}\" \"server/**/*.js\""
   },
-  "lint-staged": {
-    "{server,src}/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --single-quote --write",
-      "git add"
-    ]
-  },
+  "proxy": "http://localhost:3080",
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "airbnb",
+      "plugin:prettier/recommended"
+    ],
+    "plugins": [
+      "react-hooks"
+    ],
+    "rules": {
+      "prettier/prettier": [
+        "error",
+        {
+          "singleQuote": true,
+          "parser": "flow"
+        }
+      ],
+      "react/jsx-filename-extension": [
+        1,
+        {
+          "extensions": [
+            ".test.js",
+            ".jsx"
+          ]
+        }
+      ]
+    },
+    "env": {
+      "browser": true,
+      "es6": true
+    }
   },
   "browserslist": {
     "production": [
@@ -45,5 +78,12 @@
       "pre-commit": "lint-staged"
     }
   },
-  "proxy": "http://localhost:3080"
+  "lint-staged": {
+    "*.{json,css}": [
+      "prettier --single-quote --write"
+    ],
+    "*.{js,jsx}": [
+      "eslint --fix"
+    ]
+  }
 }
