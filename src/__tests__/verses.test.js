@@ -3,6 +3,7 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { MemoryRouter, Route, Switch } from 'react-router-dom';
 import Verses from '../verses';
+import Context from '../context';
 
 let container = null;
 let calledUrls = null;
@@ -30,11 +31,13 @@ afterEach(() => {
 const renderChapters = async (book) => {
   await act(async () => {
     render(
-      <MemoryRouter initialEntries={[`/${book}/1`]}>
-        <Switch>
-          <Route path="/:book/:chapter" component={Verses} />
-        </Switch>
-      </MemoryRouter>,
+      <Context.Provider value={{ mainLang: 'E', subLang: 'K' }}>
+        <MemoryRouter initialEntries={[`/${book}/1`]}>
+          <Switch>
+            <Route path="/:book/:chapter" component={Verses} />
+          </Switch>
+        </MemoryRouter>
+      </Context.Provider>,
       container
     );
   });

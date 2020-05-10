@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
+import Context from './context';
 import { books, langs } from './data';
 
 const get = (url, callback) => {
@@ -10,6 +11,7 @@ const get = (url, callback) => {
 };
 
 export default ({ match }) => {
+  const { mainLang, subLang } = useContext(Context);
   const [verses, setVerses] = useState([]);
   const [trans, setTrans] = useState([]);
   const [selected, setSelected] = useState(-1);
@@ -19,12 +21,15 @@ export default ({ match }) => {
   const book = books[bookname];
 
   useEffect(() => {
-    get(`/E/${book.index}.${chapter}`, setVerses);
-    get(`/K/${book.index}.${chapter}`, setTrans);
-  }, [book, chapter]);
+    get(`/${mainLang}/${book.index}.${chapter}`, setVerses);
+    get(`/${subLang}/${book.index}.${chapter}`, setTrans);
+  }, [book, chapter, mainLang, subLang]);
 
   const title = `${book.name} ${chapter}장`;
   const version = langs[0];
+  const toggle = (index) => {
+    setSelected(index === selected ? -1 : index);
+  };
 
   return (
     <div>
@@ -36,11 +41,7 @@ export default ({ match }) => {
       </div>
       <div className="vertical-buffer" />
       {verses.map((verse, index) => (
-        <div
-          key={verse}
-          className="verse-grid"
-          onClick={() => setSelected(index)}
-        >
+        <div key={verse} className="verse-grid" onClick={() => toggle(index)}>
           <div className="index">{index + 1}</div>
           <div className="text">
             <div>{verse}</div>

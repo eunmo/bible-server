@@ -110,6 +110,18 @@ a {
   grid-column-gap: 3px;
 }
 
+.lang-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-column-gap: 3px;
+  margin-bottom: 5px;
+}
+
+.lang {
+  color: rgb(76, 217, 0);
+  text-align: center;
+}
+
 @media screen and (max-width: 543px) {
   .hide-mobile {
     display: none;
