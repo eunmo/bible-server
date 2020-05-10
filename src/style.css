@@ -1,3 +1,9 @@
+:root {
+  --ios-orange: rgb(255, 149, 0);
+  --ios-green: rgb(52, 199, 89);
+  --ios-blue: rgb(0, 122, 255);
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial,
@@ -66,7 +72,7 @@ body {
 }
 
 a {
-  color: rgb(255, 149, 0);
+  color: var(--ios-orange);
   text-decoration: none;
 }
 
@@ -87,7 +93,7 @@ a {
   line-height: 23px;
   text-align: center;
 
-  color: rgb(76, 217, 100);
+  color: var(--ios-green);
   font-size: smaller;
 }
 
@@ -97,7 +103,7 @@ a {
 }
 
 .sub {
-  color: rgb(0, 122, 255);
+  color: var(--ios-blue);
 }
 
 .vertical-buffer {
@@ -118,7 +124,7 @@ a {
 }
 
 .lang {
-  color: rgb(76, 217, 0);
+  color: var(--ios-green);
   text-align: center;
 }
 
@@ -129,5 +135,17 @@ a {
 
   .show-mobile {
     display: inline;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: black;
+  }
+
+  :root {
+    --ios-orange: rgb(255, 159, 10);
+    --ios-green: rgb(48, 209, 88);
+    --ios-blue: rgb(10, 132, 255);
   }
 }
