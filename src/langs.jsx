@@ -11,8 +11,6 @@ export default ({ match }) => {
   const backUrl = `/${bookname}/${chapter}`;
   const backName = `${bookname} ${chapter}장으로 돌아가기`;
 
-  const selected = { color: 'black' };
-
   return (
     <div>
       <div className="header">언어설정</div>
@@ -20,17 +18,15 @@ export default ({ match }) => {
         <div key={lang.abbr} className="lang-grid">
           <div>{lang.name}</div>
           <div
-            className="lang"
+            className={`lang ${mainLang === lang.abbr ? 'lang-selected' : ''}`}
             onClick={() => setMainLang(lang.abbr)}
-            style={mainLang === lang.abbr ? selected : {}}
             data-testid={`mainLang-${lang.abbr}`}
           >
             주언어
           </div>
           <div
-            className="lang"
+            className={`lang ${subLang === lang.abbr ? 'lang-selected' : ''}`}
             onClick={() => setSubLang(lang.abbr)}
-            style={subLang === lang.abbr ? selected : {}}
             data-testid={`subLang-${lang.abbr}`}
           >
             부언어
