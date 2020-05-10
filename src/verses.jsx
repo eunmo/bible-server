@@ -40,10 +40,10 @@ export default ({ match }) => {
     <div>
       <div className="flex-container flex-container-space-between flex-container-align-start">
         <Header title={title} />
-        <div>
+        <div className="to-lang">
           <Link to={`${url}/lang`}>
             <div>{langMap[mainLang].name}</div>
-            <div>{langMap[subLang].name}</div>
+            <div className="sub">{langMap[subLang].name}</div>
           </Link>
         </div>
       </div>

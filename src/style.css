@@ -147,6 +147,10 @@ a {
   color: var(--text);
 }
 
+.to-lang {
+  line-height: 25px;
+}
+
 @media screen and (max-width: 543px) {
   .hide-mobile {
     display: none;
