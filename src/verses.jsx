@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
+import Header from './header';
 import Context from './context';
-import { books, langs } from './data';
+import { books, langMap } from './data';
 
 const get = (url, callback) => {
   fetch(url)
@@ -25,18 +26,25 @@ export default ({ match }) => {
     get(`/${subLang}/${book.index}.${chapter}`, setTrans);
   }, [book, chapter, mainLang, subLang]);
 
-  const title = `${book.name} ${chapter}장`;
-  const version = langs[0];
+  const title = (
+    <span>
+      <Link to={`/${book.name}`}>{book.name}</Link>
+      {` ${chapter}장`}
+    </span>
+  );
   const toggle = (index) => {
     setSelected(index === selected ? -1 : index);
   };
 
   return (
     <div>
-      <div className="flex-container flex-container-space-between">
-        <div className="header">{title}</div>
+      <div className="flex-container flex-container-space-between flex-container-align-start">
+        <Header title={title} />
         <div>
-          <Link to={`${url}/lang`}>{version.name}</Link>
+          <Link to={`${url}/lang`}>
+            <div>{langMap[mainLang].name}</div>
+            <div>{langMap[subLang].name}</div>
+          </Link>
         </div>
       </div>
       <div className="vertical-buffer" />

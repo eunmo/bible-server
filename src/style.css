@@ -57,6 +57,10 @@ body {
   flex-wrap: wrap;
 }
 
+.flex-container-align-start {
+  align-items: flex-start;
+}
+
 .show-mobile {
   display: none;
 }
@@ -87,13 +91,9 @@ a {
 }
 
 .Header {
-  font-size: 1.5em;
+  font-size: 2em;
   font-weight: bold;
-  line-height: 30px;
-
-  display: grid;
-  grid-template-columns: 30px 1fr 30px;
-  grid-column-gap: 3px;
+  line-height: 50px;
 }
 
 .selector {

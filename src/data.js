@@ -98,4 +98,9 @@ const langs = [
   { name: '🇪🇸 NVI', abbr: 'S' },
 ];
 
-export { testaments, books, langs };
+const langMap = {};
+langs.forEach((l) => {
+  langMap[l.abbr] = l;
+});
+
+export { testaments, books, langs, langMap };
