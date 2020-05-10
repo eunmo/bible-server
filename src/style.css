@@ -104,6 +104,12 @@ a {
   height: 10px;
 }
 
+.verse-grid {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  grid-column-gap: 3px;
+}
+
 @media screen and (max-width: 543px) {
   .hide-mobile {
     display: none;
