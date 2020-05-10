@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import Header from './header';
 import { books } from './data';
 
 export default ({ match }) => {
@@ -10,7 +11,7 @@ export default ({ match }) => {
 
   return (
     <div>
-      <div className="header">{book.name}</div>
+      <Header title={book.name} />
       <div className="vertical-buffer" />
       <div className="flex-container flex-container-wrap">
         {chapters.map((chapter) => (
