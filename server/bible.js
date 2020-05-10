@@ -1,13 +1,5 @@
-const express = require('express');
-const path = require('path');
+const app = require('./app');
 
-const app = express();
+const PORT = 3080;
 
-app.use(express.static(path.join(__dirname, '../build')));
-app.use(express.static(path.join(__dirname, '../data')));
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../build/index.html'));
-});
-
-app.listen(3080);
+app.listen(PORT);
