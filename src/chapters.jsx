@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import Header from './header';
 import { books } from './data';
 
-export default ({ match }) => {
-  const { book: bookname } = match.params;
+export default () => {
+  const { book: bookname } = useParams();
   const book = books[bookname];
   const chapters = Array.from(Array(book.chapters), (_, i) => i + 1);
 

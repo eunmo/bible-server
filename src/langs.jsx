@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import Header from './header';
 import Context from './context';
 import { langs } from './data';
 
-export default ({ match }) => {
+export default () => {
   const { mainLang, setMainLang, subLang, setSubLang } = useContext(Context);
 
-  const { book: bookname, chapter } = match.params;
+  const { book: bookname, chapter } = useParams();
   const backUrl = `/${bookname}/${chapter}`;
   const backName = `${bookname} ${chapter}장으로 돌아가기`;
 

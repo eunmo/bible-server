@@ -31,5 +31,5 @@ test('renders without crashing', () => {
 
 test('renders all links', () => {
   renderBooks();
-  expect(document.querySelectorAll('a').length).toBe(66);
+  expect(document.querySelectorAll('a').length).toBe(66 + 2);
 });

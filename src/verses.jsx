@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
 import Header from './header';
 import Context from './context';
@@ -11,14 +11,14 @@ const get = (url, callback) => {
     .then(callback);
 };
 
-export default ({ match }) => {
+export default () => {
   const { mainLang, subLang } = useContext(Context);
   const [verses, setVerses] = useState([]);
   const [trans, setTrans] = useState([]);
   const [selected, setSelected] = useState(-1);
 
-  const { params, url } = match;
-  const { book: bookname, chapter } = params;
+  const { pathname: url } = useLocation();
+  const { book: bookname, chapter } = useParams();
   const book = books[bookname];
 
   useEffect(() => {

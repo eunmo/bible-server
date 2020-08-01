@@ -37,6 +37,6 @@ test.each([
   ['레위기', 27],
 ])('renders %s', (book, count) => {
   renderChapters(book);
-  expect(document.querySelector('.header').textContent).toBe(book);
-  expect(document.querySelectorAll('a').length).toBe(count);
+  expect(document.querySelector('.Header').textContent).toBe(`✝️ ${book}`);
+  expect(document.querySelectorAll('a').length).toBe(count + 1);
 });
