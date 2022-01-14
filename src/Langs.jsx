@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-import Header from './header';
+import Header from './Header';
 import Context from './context';
 import { langs } from './data';
 
-export default () => {
+export default function Langs() {
   const { mainLang, setMainLang, subLang, setSubLang } = useContext(Context);
 
   const { book: bookname, chapter } = useParams();
@@ -41,4 +41,4 @@ export default () => {
       </div>
     </div>
   );
-};
+}

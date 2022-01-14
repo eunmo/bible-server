@@ -1,7 +1,8 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
-import { MemoryRouter, Route, Switch } from 'react-router-dom';
-import Chapters from '../chapters';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
+
+import Chapters from '../Chapters';
 
 let container = null;
 
@@ -19,9 +20,9 @@ afterEach(() => {
 const renderChapters = (book) => {
   render(
     <MemoryRouter initialEntries={[`/${book}`]}>
-      <Switch>
-        <Route path="/:book" component={Chapters} />
-      </Switch>
+      <Routes>
+        <Route path=":book" element={<Chapters />} />
+      </Routes>
     </MemoryRouter>,
     container
   );

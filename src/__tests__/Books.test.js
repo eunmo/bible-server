@@ -1,7 +1,8 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { MemoryRouter } from 'react-router-dom';
-import Books from '../books';
+
+import Books from '../Books';
 
 let container = null;
 

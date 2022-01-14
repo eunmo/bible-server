@@ -1,8 +1,9 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import { MemoryRouter, Route, Switch } from 'react-router-dom';
-import Verses from '../verses';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
+
+import Verses from '../Verses';
 import Context from '../context';
 
 let container = null;
@@ -28,14 +29,16 @@ afterEach(() => {
   container = null;
 });
 
+const langContext = { mainLang: 'E', subLang: 'K' };
+
 const renderChapters = async (book) => {
   await act(async () => {
     render(
-      <Context.Provider value={{ mainLang: 'E', subLang: 'K' }}>
+      <Context.Provider value={langContext}>
         <MemoryRouter initialEntries={[`/${book}/1`]}>
-          <Switch>
-            <Route path="/:book/:chapter" component={Verses} />
-          </Switch>
+          <Routes>
+            <Route path=":book/:chapter" element={<Verses />} />
+          </Routes>
         </MemoryRouter>
       </Context.Provider>,
       container

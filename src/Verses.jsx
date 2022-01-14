@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 
-import Header from './header';
+import Header from './Header';
 import Context from './context';
 import { books, langMap } from './data';
 
@@ -11,7 +11,7 @@ const get = (url, callback) => {
     .then(callback);
 };
 
-export default () => {
+export default function Verses() {
   const { mainLang, subLang } = useContext(Context);
   const [verses, setVerses] = useState([]);
   const [trans, setTrans] = useState([]);
@@ -59,4 +59,4 @@ export default () => {
       ))}
     </div>
   );
-};
+}

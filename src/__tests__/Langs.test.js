@@ -1,8 +1,9 @@
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import { MemoryRouter, Route, Switch } from 'react-router-dom';
-import Langs from '../langs';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
+
+import Langs from '../Langs';
 import Context from '../context';
 
 let container;
@@ -30,9 +31,9 @@ const renderLangs = () => {
   render(
     <MemoryRouter initialEntries={['/창세기/1/lang']}>
       <Context.Provider value={value}>
-        <Switch>
-          <Route path="/:book/:chapter/lang" component={Langs} />
-        </Switch>
+        <Routes>
+          <Route path=":book/:chapter/lang" element={<Langs />} />
+        </Routes>
       </Context.Provider>
     </MemoryRouter>,
     container

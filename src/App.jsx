@@ -1,18 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import Context from './context';
-import Routes from './routes';
+import Routes from './Routes';
 import './style.css';
 
-export default () => {
+export default function App() {
   const [mainLang, setMainLang] = useState(localStorage.mainLang ?? 'K');
   const [subLang, setSubLang] = useState(localStorage.subLang ?? 'E');
-  const value = { mainLang, setMainLang, subLang, setSubLang };
 
   useEffect(() => {
     localStorage.mainLang = mainLang;
     localStorage.subLang = subLang;
   }, [mainLang, subLang]);
+
+  const value = useMemo(
+    () => ({
+      mainLang,
+      setMainLang,
+      subLang,
+      setSubLang,
+    }),
+    [mainLang, subLang]
+  );
 
   return (
     <Context.Provider value={value}>
@@ -25,4 +34,4 @@ export default () => {
       </div>
     </Context.Provider>
   );
-};
+}
