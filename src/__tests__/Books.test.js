@@ -1,27 +1,13 @@
-import { render, unmountComponentAtNode } from 'react-dom';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 import Books from '../Books';
-
-let container = null;
-
-beforeEach(() => {
-  container = document.createElement('div');
-  document.body.appendChild(container);
-});
-
-afterEach(() => {
-  unmountComponentAtNode(container);
-  container.remove();
-  container = null;
-});
 
 const renderBooks = () => {
   render(
     <MemoryRouter>
       <Books />
-    </MemoryRouter>,
-    container
+    </MemoryRouter>
   );
 };
 
@@ -31,5 +17,5 @@ test('renders without crashing', () => {
 
 test('renders all links', () => {
   renderBooks();
-  expect(document.querySelectorAll('a').length).toBe(66 + 2);
+  expect(screen.getAllByRole('link').length).toBe(66 + 2);
 });

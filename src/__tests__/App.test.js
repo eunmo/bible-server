@@ -1,29 +1,21 @@
-import { render, unmountComponentAtNode } from 'react-dom';
-import { act } from 'react-dom/test-utils';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 import App from '../App';
 
-let container = null;
-
 beforeEach(() => {
-  container = document.createElement('div');
-  document.body.appendChild(container);
   global.localStorage.clear();
 });
 
 afterEach(() => {
-  unmountComponentAtNode(container);
-  container.remove();
-  container = null;
+  global.localStorage.clear();
 });
 
 test('renders without crashing', () => {
   render(
     <MemoryRouter>
       <App />
-    </MemoryRouter>,
-    container
+    </MemoryRouter>
   );
 });
 
@@ -34,17 +26,10 @@ test.each([
   render(
     <MemoryRouter initialEntries={['/창세기/1/lang']}>
       <App />
-    </MemoryRouter>,
-    container
+    </MemoryRouter>
   );
 
-  expect(global.localStorage.mainLang).toBe(undefined);
-  expect(global.localStorage.subLang).toBe(undefined);
-
-  act(() => {
-    const button = document.querySelector(`[data-testid=${testid}]`);
-    button.dispatchEvent(new MouseEvent('click', { bubbles: true }));
-  });
+  fireEvent.click(screen.getByTestId(testid));
 
   expect(global.localStorage.mainLang).toBe(main);
   expect(global.localStorage.subLang).toBe(sub);

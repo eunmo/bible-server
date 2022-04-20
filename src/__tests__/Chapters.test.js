@@ -1,20 +1,7 @@
-import { render, unmountComponentAtNode } from 'react-dom';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
 import Chapters from '../Chapters';
-
-let container = null;
-
-beforeEach(() => {
-  container = document.createElement('div');
-  document.body.appendChild(container);
-});
-
-afterEach(() => {
-  unmountComponentAtNode(container);
-  container.remove();
-  container = null;
-});
 
 const renderChapters = (book) => {
   render(
@@ -22,8 +9,7 @@ const renderChapters = (book) => {
       <Routes>
         <Route path=":book" element={<Chapters />} />
       </Routes>
-    </MemoryRouter>,
-    container
+    </MemoryRouter>
   );
 };
 
@@ -37,6 +23,6 @@ test.each([
   ['레위기', 27],
 ])('renders %s', (book, count) => {
   renderChapters(book);
-  expect(document.querySelector('.Header').textContent).toBe(`✝️ ${book}`);
-  expect(document.querySelectorAll('a').length).toBe(count + 1);
+  expect(screen.getAllByRole('link').length).toBe(count + 1);
+  expect(screen.getByText(book)).toBeInTheDocument();
 });

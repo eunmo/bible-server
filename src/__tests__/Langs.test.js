@@ -1,29 +1,18 @@
-import { render, unmountComponentAtNode } from 'react-dom';
-import { act } from 'react-dom/test-utils';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
 import Langs from '../Langs';
 import Context from '../context';
 
-let container;
 let value;
 
 beforeEach(() => {
-  container = document.createElement('div');
-  document.body.appendChild(container);
-
   value = {
     mainLang: 'K',
     subLang: 'E',
     setMainLang: jest.fn(),
     setSubLang: jest.fn(),
   };
-});
-
-afterEach(() => {
-  unmountComponentAtNode(container);
-  container.remove();
-  container = null;
 });
 
 const renderLangs = () => {
@@ -34,8 +23,7 @@ const renderLangs = () => {
           <Route path=":book/:chapter/lang" element={<Langs />} />
         </Routes>
       </Context.Provider>
-    </MemoryRouter>,
-    container
+    </MemoryRouter>
   );
 };
 
@@ -49,10 +37,7 @@ test.each([
 ])('updates %s', (testid, main, sub) => {
   renderLangs();
 
-  act(() => {
-    const button = document.querySelector(`[data-testid=${testid}]`);
-    button.dispatchEvent(new MouseEvent('click', { bubbles: true }));
-  });
+  fireEvent.click(screen.getByTestId(testid));
 
   expect(value.setMainLang.mock.calls).toEqual(main);
   expect(value.setSubLang.mock.calls).toEqual(sub);

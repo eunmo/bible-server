@@ -1,17 +1,12 @@
-import { render, unmountComponentAtNode } from 'react-dom';
-import { act } from 'react-dom/test-utils';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 
 import Verses from '../Verses';
 import Context from '../context';
 
-let container = null;
 let calledUrls = null;
 
 beforeEach(() => {
-  container = document.createElement('div');
-  document.body.appendChild(container);
-
   calledUrls = [];
   jest.spyOn(global, 'fetch').mockImplementation((url) => {
     calledUrls.push(url);
@@ -20,12 +15,6 @@ beforeEach(() => {
       json: () => (url.startsWith('/E') ? ['A', 'B'] : ['a', 'b']),
     });
   });
-});
-
-afterEach(() => {
-  unmountComponentAtNode(container);
-  container.remove();
-  container = null;
 });
 
 const langContext = { mainLang: 'E', subLang: 'K' };
@@ -39,8 +28,7 @@ const renderChapters = async (book) => {
             <Route path=":book/:chapter" element={<Verses />} />
           </Routes>
         </MemoryRouter>
-      </Context.Provider>,
-      container
+      </Context.Provider>
     );
   });
 };
@@ -52,32 +40,23 @@ test('renders without crashing', async () => {
 test('renders verses', async () => {
   await renderChapters('창세기');
 
-  const verses = document.querySelectorAll('.verse-grid');
-  expect(verses.length).toBe(2);
-  const expected = ['1A', '2B'];
-  verses.forEach((v, i) => {
-    expect(v.textContent).toBe(expected[i]);
-  });
+  expect(screen.getByText('1')).toBeInTheDocument();
+  expect(screen.getByText('A')).toBeInTheDocument();
+  expect(screen.getByText('2')).toBeInTheDocument();
+  expect(screen.getByText('B')).toBeInTheDocument();
 });
 
 test('renders trans', async () => {
   await renderChapters('창세기');
 
-  const verses = document.querySelectorAll('.verse-grid');
-  act(() => {
-    verses[0].dispatchEvent(new MouseEvent('click', { bubbles: true }));
-  });
+  expect(screen.queryByText('a')).not.toBeInTheDocument();
+  expect(screen.queryByText('b')).not.toBeInTheDocument();
 
-  let expected = ['1Aa', '2B'];
-  verses.forEach((v, i) => {
-    expect(v.textContent).toBe(expected[i]);
-  });
+  fireEvent.click(screen.getByText('A'));
+  expect(screen.getByText('a')).toBeInTheDocument();
+  expect(screen.queryByText('b')).not.toBeInTheDocument();
 
-  act(() => {
-    verses[1].dispatchEvent(new MouseEvent('click', { bubbles: true }));
-  });
-  expected = ['1A', '2Bb'];
-  verses.forEach((v, i) => {
-    expect(v.textContent).toBe(expected[i]);
-  });
+  fireEvent.click(screen.getByText('B'));
+  expect(screen.queryByText('a')).not.toBeInTheDocument();
+  expect(screen.getByText('b')).toBeInTheDocument();
 });
